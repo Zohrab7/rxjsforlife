@@ -1,112 +1,89 @@
-import { Observable, of,OperatorFunction, interval, from, range, forkJoin, concat, combineLatest} from 'rxjs';
-import RxOperators,{
-  map,find, mergeMap, flatMap,switchMap, delay, filter,
-  pluck, concatMap, toArray,mergeScan,scan,repeat,
-  concatAll,startWith,endWith,takeLast,take,
-  merge,last,zip,takeWhile,reduce,publish
+import {Observable, of, OperatorFunction, interval, from, range, forkJoin, concat, combineLatest} from 'rxjs';
+import RxOperators, {
+    map, find, mergeMap, flatMap, switchMap, delay, filter,
+    pluck, concatMap, toArray, mergeScan, scan, repeat,
+    concatAll, startWith, endWith, takeLast, take,
+    merge, last, zip, takeWhile, reduce, publish
 } from 'rxjs/operators';
 
 interface student {
-  name:string,
-  age:number
+    name: string,
+    age: number
 }
 
-interface classType{
-  name:string,
-  type:string,
-  students:student[]
+interface classType {
+    name: string,
+    type: string,
+    students: student[]
 }
 
-let School:classType[] = [
-  {
-    name:"A",
-    type:"class",
-    students:[
-      {
-        name : "John",
-        age: 15
-      },
-      {
-        name: "Sarah",
-        age: 16
-      },
-      {
-        name: "Sofie",
-        age: 20
-      }
-    ]
-  },
-  {
-    name:"B",
-    type:"class",
-    students:[
-      {
-        name : "Michael",
-        age: 18
-      },
-      {
-        name: "Jennie",
-        age: 17
-      },
-      {
-        name: "Denis",
-        age: 16
-      }
-    ]
-  },
-  {
-    name:"C",
-    type:"class",
-    students:[
-      {
-        name : "Frank",
-        age: 17
-      },
-      {
-        name: "Morgan",
-        age: 15
-      },
-      {
-        name: "Chris",
-        age: 14
-      }
-    ]
-  }
+let School: classType[] = [
+    {
+        name: "A",
+        type: "class",
+        students: [
+            {
+                name: "John",
+                age: 15
+            },
+            {
+                name: "Sarah",
+                age: 16
+            },
+            {
+                name: "Sofie",
+                age: 20
+            }
+        ]
+    },
+    {
+        name: "B",
+        type: "class",
+        students: [
+            {
+                name: "Michael",
+                age: 18
+            },
+            {
+                name: "Jennie",
+                age: 17
+            },
+            {
+                name: "Denis",
+                age: 16
+            }
+        ]
+    },
+    {
+        name: "C",
+        type: "class",
+        students: [
+            {
+                name: "Frank",
+                age: 17
+            },
+            {
+                name: "Morgan",
+                age: 15
+            },
+            {
+                name: "Chris",
+                age: 14
+            }
+        ]
+    }
 ];
 from(School)
-.pipe(
-  find<any>(({name})=>name==="A"),
-  pluck<any,any>("students"),
-  flatMap(from),
-  filter((data:any)=>data.name=="Sofie"),
-  delay(2000),
-  repeat(2),
-  map(({name,age}:student)=>`name: ${name} age: ${age}`)
-)
-.subscribe(console.log);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    .pipe(
+        find<any>(({name}) => name === "A"),
+        pluck<any, any>("students"),
+        flatMap(from),
+        filter((data: any) => data.name == "Sofie"),
+        delay(2000),
+        repeat(2),
+        map(({name, age}: student) => `name: ${name} age: ${age}`)
+    )
+    .subscribe(console.log);
 
 
 //
