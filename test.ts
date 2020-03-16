@@ -75,7 +75,7 @@ let School:classType[] = [
 ];
 from(School)
 .pipe(
-  find<(({name}:classType)=>boolean):OperatorFunction>(({name})=>name==="A"),
+  find<any>(({name})=>name==="A"),
   pluck<any,any>("students"),
   flatMap(from),
   filter((data:any)=>data.name=="Sofie"),
@@ -84,9 +84,6 @@ from(School)
   map(({name,age}:student)=>`name: ${name} age: ${age}`)
 )
 .subscribe(console.log);
-
-find<T>(predicate: (value: T, index: number, source: Observable<T>) =>
-boolean, thisArg?: any): OperatorFunction<T, T | undefined>
 
 
 
