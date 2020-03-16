@@ -1,4 +1,4 @@
-import {Observable, of, OperatorFunction, interval, from, range, forkJoin, concat, combineLatest} from 'rxjs';
+import {Observable, of, OperatorFunction, interval, from, range, forkJoin, concat, combineLatest, ObservableInput} from 'rxjs';
 import RxOperators, {
     map, find, mergeMap, flatMap, switchMap, delay, filter,
     pluck, concatMap, toArray, mergeScan, scan, repeat,
@@ -12,9 +12,9 @@ interface student {
 }
 
 interface classType {
-    name: string,
-    type: string,
-    students: student[]
+    name?: string,
+    type?: string,
+    students?: student[]
 }
 
 let School: classType[] = [
@@ -75,8 +75,8 @@ let School: classType[] = [
 ];
 from(School)
     .pipe(
-        find<any>(({name}) => name === "A"),
-        pluck<any, any>("students"),
+        find<classType>(({name}) => name === "A"),
+        pluck<classType|undefined,ObservableInput<string>>("students"),
         flatMap(from),
         filter((data: any) => data.name == "Sofie"),
         delay(2000),
